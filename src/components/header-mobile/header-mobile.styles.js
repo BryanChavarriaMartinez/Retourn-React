@@ -3,37 +3,46 @@ import { colors } from "../../modal/color.modal";
 
 const styles = StyleSheet.create({
   headerWrap: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    borderBottomColor: "black",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  searchWrap: {
+    marginTop: 4,
+    marginLeft: 20,
     marginBottom: 10,
     backgroundColor: colors.primary,
     alignItems: "center",
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderRadius: 50,
+    width: "90%",
+    shadowColor: colors.grey,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
   },
   searchByTextWrap: {
     backgroundColor: colors.white,
     flexDirection: "row",
     margin: 10,
-    padding: 10,
+    padding: 5,
     borderRadius: 5,
   },
   searchPlaceholder: {
-    width: "100%",
-    marginLeft: 5,
+    width: "80%",
+    marginLeft: 10,
   },
-  locationCategoryWrap: {
+  locationWrap: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingVertical: 10,
+    marginBottom: 10,
+    marginLeft: 20,
   },
-  locationWrap: { flexDirection: "row" },
-  locationText: { marginLeft: 5 },
-  locationDynText: { fontWeight: "bold", marginLeft: 5 },
-  categoryWrap: { flexDirection: "row" },
-  categoryText: { marginLeft: 5 },
-  categoryDynText: { fontWeight: "bold", marginLeft: 5 },
+  locationText: {
+    padding: 3,
+  },
+  locationDynText: {
+    padding: 3,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
