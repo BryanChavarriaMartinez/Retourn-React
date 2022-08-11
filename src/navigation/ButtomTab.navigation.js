@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/home/home.screen";
 import ProductDetails from "../screens/product-details/product-details.screen";
+import Listing from "../screens/listing/listing.screen";
 import { colors } from "../modal/color.modal";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -11,9 +12,9 @@ const BottomTabNav = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: colors.red,
-        tabBarStyle: { 
-          backgroundColor: colors.primary, 
-          height: 55, 
+        tabBarStyle: {
+          backgroundColor: colors.primary,
+          height: 55,
         },
       }}
       sceneContainerStyle={{ backgroundColor: colors.background }}
@@ -30,7 +31,7 @@ const BottomTabNav = () => {
       />
       <Tab.Screen
         name={"Listing"}
-        component={ProductDetails}
+        component={Listing}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -39,6 +40,7 @@ const BottomTabNav = () => {
               color="black"
             />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
