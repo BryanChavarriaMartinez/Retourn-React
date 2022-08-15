@@ -15,10 +15,10 @@ const ProductCard = () => {
           ></Image>
           <View style={styles.postContentWrap}>
             <View>
-              <Text style={styles.postTitle}>Williams, Arizona, US</Text>
+              <Text style={styles.postTitle}>Creel, Chihuahua, MX</Text>
               <Text style={styles.postPlace}>960 kilometers away</Text>
             </View>
-            <Text style={styles.postValue}>$4,044 MXN night</Text>
+            <Text style={styles.postValue}>$2,544 MXN night</Text>
           </View>
       </Pressable>
     );

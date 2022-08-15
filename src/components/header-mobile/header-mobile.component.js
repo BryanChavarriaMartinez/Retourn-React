@@ -19,7 +19,7 @@ const HeaderMobile = () => {
       <View style={styles.locationWrap}>
         <Ionicons name="ios-location-sharp" size={20} color="black" />
         <Text style={styles.locationText}>Location</Text>
-        <Text style={styles.locationDynText}>New York</Text>
+        <Text style={styles.locationDynText}>Juarez, Chih.</Text>
       </View>
     </View>
   );

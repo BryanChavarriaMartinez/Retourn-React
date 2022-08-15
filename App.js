@@ -4,7 +4,7 @@ import Route from "./src/navigation/Router.navigation";
 import styles from "./App.styles";
 import { colors } from "./src/modal/color.modal";
 import "react-native-gesture-handler";
-import { Amplify, Analytics, Auth } from "aws-amplify";
+import Amplify, { Analytics, Auth } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 Amplify.configure({
   ...awsconfig, 
