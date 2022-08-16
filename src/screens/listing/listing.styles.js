@@ -2,19 +2,63 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../modal/color.modal";
 
 const styles = StyleSheet.create({
-  category: {
+  listing: {
+    margin: 10,
+  },
+  imageContainer: {
+    marginTop: 10,
+  },
+  imageUpload: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  imageText: {
+    fontSize: 16,
+    marginLeft: 10,
+    marginRight: 10,
+    fontWeight: "bold",
+  },
+  imageSelect: {
+    display: "flex",
+    backgroundColor: colors.white,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+    height: 150,
+    width: 120,
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderRadius: 30,
+  },
+  imageData: {
+    height: 100,
+    width: 100,
+    marginRight: 5,
+    marginBottom: 15,
+    marginTop: -10,
+  },
+  categoryContainer: {
     display: "flex",
     backgroundColor: colors.grey,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 10,
     paddingVertical: 10,
     paddingLeft: 20,
     paddingRight: 10,
     borderRadius: 30,
   },
-  inputText: {
+  categoryIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  categoryText: {
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  textContainer: {
     fontSize: 16,
     backgroundColor: colors.grey,
     alignItems: "center",
@@ -23,27 +67,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 10,
     borderRadius: 30,
-    marginBottom: 20,
+    marginBottom: 10,
   },
-  image: {
-    display: "flex",
-    backgroundColor: colors.white,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    height: 180,
-    width: 150,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderRadius: 30,
+  inputText: {
+    fontSize: 16,
+    marginLeft: 10,
   },
   postButton: {
-    margin: 10,
     borderRadius: 30,
     backgroundColor: colors.secondary,
     alignItems: "center",
+    marginTop: 20,
     paddingLeft: 20,
-    marginTop: 40,
     elevation: 5,
   },
   postButtonText: {

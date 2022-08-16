@@ -1,14 +1,27 @@
-import { View, Text, Pressable, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Pressable, ScrollView, Image } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
 import { Auth } from "aws-amplify";
 import { TextInput } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "./listing.styles";
 import { colors } from "../../modal/color.modal";
 import { Ionicons } from "@expo/vector-icons";
 
 const Listing = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const [imageData, setImageData] = useState([]);
+
+  useEffect(() => {
+    if (!route.params) {
+      console.log("There is no data in route");
+    } else {
+      if (route.params.imageData !== undefined) {
+        setImageData(route.params.imageData);
+      }
+    }
+  })
 
   Auth.currentAuthenticatedUser()
   .then((user) => {
@@ -21,32 +34,44 @@ const Listing = () => {
   // Auth.signOut();
 
   return (
-    <View style={{ margin: 10 }}>
-      <View style={{ marginTop: 10 }}>
-        <Text>Upload images [Max 5 photos]</Text>
-        <Pressable 
-          style={styles.image}
-          onPress={() => {
-            navigation.navigate("SelectPhoto");
-          }}>
-          <Ionicons
-            name="ios-add-circle-outline"
-            size={24}
-            color={colors.secondary}
-          />
-        </Pressable>
+    <View style={styles.listing}>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageUpload}>
+          <Text style={styles.imageText}>Upload images:</Text>
+          <Pressable
+            style={styles.imageSelect}
+            onPress={() => {
+              navigation.navigate("SelectPhoto");
+            }}
+          >
+            <Ionicons
+              name="ios-add-circle-outline"
+              size={24}
+              color={colors.secondary}
+            />
+          </Pressable>
+        </View>
         <View>
-          <Image src={{}} />
+          <ScrollView horizontal={true}>
+            {imageData &&
+              imageData.map((component, index) => (
+                <Image
+                  key={component.id}
+                  source={{ uri: component.uri }}
+                  style={styles.imageData}
+                />
+              ))}
+          </ScrollView>
         </View>
       </View>
-      <View style={styles.category}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.categoryContainer}>
+        <View style={styles.categoryIcons}>
           <Ionicons
             name="ios-options-outline"
             size={20}
             color={colors.secondary}
           />
-          <Text style={{ fontSize: 16, marginLeft: 10 }}>Category</Text>
+          <Text style={styles.categoryText}>Category</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
@@ -54,14 +79,14 @@ const Listing = () => {
           color={colors.secondary}
         />
       </View>
-      <View style={styles.category}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.categoryContainer}>
+        <View style={styles.categoryIcons}>
           <Ionicons
             name="ios-location-sharp"
             size={20}
             color={colors.secondary}
           />
-          <Text style={{ fontSize: 16, marginLeft: 10 }}>Location</Text>
+          <Text style={styles.categoryText}>Location</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
@@ -69,35 +94,24 @@ const Listing = () => {
           color={colors.secondary}
         />
       </View>
-      <View style={styles.inputText}>
+      <View style={styles.textContainer}>
         <Ionicons name="ios-home-outline" size={24} color={colors.secondary} />
-        <TextInput
-          style={{ fontSize: 16, marginLeft: 10 }}
-          placeholder="Location Title"
-        />
+        <TextInput style={styles.inputText} placeholder="Location Title" />
       </View>
-      <View style={styles.inputText}>
+      <View style={styles.textContainer}>
         <Ionicons
           name="ios-document-text-outline"
           size={24}
           color={colors.secondary}
         />
-        <TextInput
-          style={{ fontSize: 16, marginLeft: 10 }}
-          placeholder="Write a description"
-        />
+        <TextInput style={styles.inputText} placeholder="Write a description" />
       </View>
-      <View style={[styles.inputText, { width: "50%" }]}>
+      <View style={[styles.textContainer, { width: "50%" }]}>
         <Ionicons name="ios-card-outline" size={24} color={colors.secondary} />
-        <TextInput
-          style={{ fontSize: 16, marginLeft: 10 }}
-          placeholder="Add a value $"
-        />
+        <TextInput style={styles.inputText} placeholder="Add a value $" />
       </View>
       <View style={styles.postButton}>
-        <Text style={styles.postButtonText}>
-          POST THIS LOCATION
-        </Text>
+        <Text style={styles.postButtonText}>POST THIS LOCATION</Text>
       </View>
     </View>
   );
