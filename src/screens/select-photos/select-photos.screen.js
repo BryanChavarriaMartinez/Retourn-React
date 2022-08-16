@@ -5,7 +5,7 @@ import { AssetsSelector } from "expo-images-picker";
 import { MediaType } from "expo-media-library";
 import { Ionicons } from "@expo/vector-icons";
 
-const SelectPhotosScreen = () => {
+const SelectPhotos = () => {
   const navigation = useNavigation();
   const onSuccess = (data: any) => {
     navigation.navigate("Listing", { imageData: data });
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectPhotosScreen;
+export default SelectPhotos;

@@ -9,7 +9,7 @@ const HeaderMobile = () => {
         <View style={styles.searchByTextWrap}>
           <Ionicons name="ios-search-sharp" size={20} color="black" />
           <TextInput
-            placeholder="Search destinations"
+            placeholder="Buscar nuevos destinos"
             style={styles.searchPlaceholder}
             multiline={false}
           />
@@ -18,7 +18,7 @@ const HeaderMobile = () => {
       </View>
       <View style={styles.locationWrap}>
         <Ionicons name="ios-location-sharp" size={20} color="black" />
-        <Text style={styles.locationText}>Location</Text>
+        <Text style={styles.locationText}>Ubicacion</Text>
         <Text style={styles.locationDynText}>Juarez, Chih.</Text>
       </View>
     </View>

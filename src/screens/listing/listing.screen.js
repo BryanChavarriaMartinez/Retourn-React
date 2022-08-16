@@ -6,12 +6,13 @@ import { TextInput } from "react-native-gesture-handler";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "./listing.styles";
 import { colors } from "../../modal/color.modal";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Listing = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [imageData, setImageData] = useState([]);
+  const [category, setCategory] = useState({ catID: 0, catName: "Categoria"});
 
   useEffect(() => {
     if (!route.params) {
@@ -19,9 +20,11 @@ const Listing = () => {
     } else {
       if (route.params.imageData !== undefined) {
         setImageData(route.params.imageData);
+      } else if(route.params.catID !== undefined) {
+        setCategory(route.params);
       }
     }
-  })
+  });
 
   Auth.currentAuthenticatedUser()
   .then((user) => {
@@ -37,11 +40,11 @@ const Listing = () => {
     <View style={styles.listing}>
       <View style={styles.imageContainer}>
         <View style={styles.imageUpload}>
-          <Text style={styles.imageText}>Upload images:</Text>
+          <Text style={styles.imageText}>Sube tus imagenes:</Text>
           <Pressable
             style={styles.imageSelect}
             onPress={() => {
-              navigation.navigate("SelectPhoto");
+              navigation.navigate("SelectPhotos");
             }}
           >
             <Ionicons
@@ -64,21 +67,26 @@ const Listing = () => {
           </ScrollView>
         </View>
       </View>
-      <View style={styles.categoryContainer}>
+      <Pressable
+        style={styles.categoryContainer}
+        onPress={() => {
+          navigation.navigate("SelectCategory");
+        }}
+      >
         <View style={styles.categoryIcons}>
           <Ionicons name="ios-options-outline" size={20} color={colors.white} />
-          <Text style={styles.categoryText}>Category</Text>
+          <Text style={styles.categoryText}>{category.catName}</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
           size={24}
           color={colors.white}
         />
-      </View>
+      </Pressable>
       <View style={styles.categoryContainer}>
         <View style={styles.categoryIcons}>
           <Ionicons name="ios-location-sharp" size={20} color={colors.white} />
-          <Text style={styles.categoryText}>Location</Text>
+          <Text style={styles.categoryText}>Ubicacion</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
@@ -87,29 +95,40 @@ const Listing = () => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Ionicons name="ios-home-outline" size={24} color={colors.white} />
-        <TextInput style={styles.inputText} placeholder="Location Title" />
-      </View>
-      <View style={styles.textContainer}>
-        <Ionicons
-          name="ios-document-text-outline"
+        <MaterialCommunityIcons
+          name="text-recognition"
           size={24}
           color={colors.white}
         />
-        <TextInput style={styles.inputText} placeholder="Write a description" />
-      </View>
-      <View style={[styles.textContainer, { width: "60%" }]}>
-        <Ionicons name="ios-card-outline" size={24} color={colors.white} />
         <TextInput
           style={styles.inputText}
-          placeholder="Add value"
+          placeholder="Titulo de la publicacion"
+        />
+      </View>
+      <View style={styles.textContainer}>
+        <MaterialCommunityIcons
+          name="text-box-search-outline"
+          size={24}
+          color={colors.white}
+        />
+        <TextInput style={styles.inputText} placeholder="Descripcion" />
+      </View>
+      <View style={[styles.textContainer, { width: "60%" }]}>
+        <MaterialCommunityIcons
+          name="currency-usd"
+          size={24}
+          color={colors.white}
+        />
+        <TextInput
+          style={styles.inputText}
+          placeholder="Precio"
           keyboardType="number-pad"
           maxLength={5}
         />
-        <Text style={styles.inputText}>MXN night</Text>
+        <Text style={styles.inputText}>MXN</Text>
       </View>
       <View style={styles.postButton}>
-        <Text style={styles.postButtonText}>POST THIS LOCATION</Text>
+        <Text style={styles.postButtonText}>PUBLICAR AHORA</Text>
       </View>
     </View>
   );

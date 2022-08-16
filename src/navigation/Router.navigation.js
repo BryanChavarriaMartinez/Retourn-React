@@ -2,7 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/home/home.screen";
 import ProductDetails from "../screens/product-details/product-details.screen";
-import SelectPhotosScreen from "../screens/selectPhotos/selectPhotos.screen";
+import SelectPhotos from "../screens/select-photos/select-photos.screen";
+import SelectCategory from "../screens/select-categories/select-categories.screen";
 import BottomTabNav from "./ButtomTab.navigation";
 import { colors } from "../modal/color.modal";
 
@@ -29,8 +30,13 @@ const Route = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="SelectPhoto"
-            component={SelectPhotosScreen}
+            name="SelectPhotos"
+            component={SelectPhotos}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SelectCategory"
+            component={SelectCategory}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
