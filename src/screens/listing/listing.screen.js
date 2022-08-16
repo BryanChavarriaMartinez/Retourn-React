@@ -66,49 +66,47 @@ const Listing = () => {
       </View>
       <View style={styles.categoryContainer}>
         <View style={styles.categoryIcons}>
-          <Ionicons
-            name="ios-options-outline"
-            size={20}
-            color={colors.secondary}
-          />
+          <Ionicons name="ios-options-outline" size={20} color={colors.white} />
           <Text style={styles.categoryText}>Category</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
           size={24}
-          color={colors.secondary}
+          color={colors.white}
         />
       </View>
       <View style={styles.categoryContainer}>
         <View style={styles.categoryIcons}>
-          <Ionicons
-            name="ios-location-sharp"
-            size={20}
-            color={colors.secondary}
-          />
+          <Ionicons name="ios-location-sharp" size={20} color={colors.white} />
           <Text style={styles.categoryText}>Location</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
           size={24}
-          color={colors.secondary}
+          color={colors.white}
         />
       </View>
       <View style={styles.textContainer}>
-        <Ionicons name="ios-home-outline" size={24} color={colors.secondary} />
+        <Ionicons name="ios-home-outline" size={24} color={colors.white} />
         <TextInput style={styles.inputText} placeholder="Location Title" />
       </View>
       <View style={styles.textContainer}>
         <Ionicons
           name="ios-document-text-outline"
           size={24}
-          color={colors.secondary}
+          color={colors.white}
         />
         <TextInput style={styles.inputText} placeholder="Write a description" />
       </View>
-      <View style={[styles.textContainer, { width: "50%" }]}>
-        <Ionicons name="ios-card-outline" size={24} color={colors.secondary} />
-        <TextInput style={styles.inputText} placeholder="Add a value $" />
+      <View style={[styles.textContainer, { width: "60%" }]}>
+        <Ionicons name="ios-card-outline" size={24} color={colors.white} />
+        <TextInput
+          style={styles.inputText}
+          placeholder="Add value"
+          keyboardType="number-pad"
+          maxLength={5}
+        />
+        <Text style={styles.inputText}>MXN night</Text>
       </View>
       <View style={styles.postButton}>
         <Text style={styles.postButtonText}>POST THIS LOCATION</Text>

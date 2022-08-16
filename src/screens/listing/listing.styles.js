@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 16,
     marginLeft: 10,
+    color: colors.white,
   },
   textContainer: {
     fontSize: 16,
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 16,
     marginLeft: 10,
+    color: colors.white,
   },
   postButton: {
     borderRadius: 30,
