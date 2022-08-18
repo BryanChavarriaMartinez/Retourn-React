@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "retourn",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Apps\\retourn\\amplify\\backend\\api\\retourn\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AWS_IAM"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authretourn85573d76"
+      }
+    ]
+  }
+}

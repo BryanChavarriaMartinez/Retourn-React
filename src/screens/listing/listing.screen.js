@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, ScrollView, Image } from "react-native";
+import { View, Text, Pressable, ScrollView, Image, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "./listing.styles";
@@ -33,48 +35,36 @@ const Listing = () => {
   });
 
   Auth.currentAuthenticatedUser()
-  .then((user) => {
-    console.log("Email es: ", user.attributes.email)
-  })
-  .catch((err) => {
-    console.log(err)
-    throw err;
-  });
-  // Auth.signOut();
+    .then((user) => {
+      console.log("Email es: ", user.attributes.email);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
 
+  const imageAllUrl = [];
+  const storeToDB = async () => {
+    imageData &&
+      imageData.map(async (component, index) => {
+        const imageUrl = component.uri;
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const urlParts = imageUrl.split(".");
+        const extension = urlParts[urlParts.length - 1];
+        const key = `${uuidv4()}.${extension}`;
+        console.log(key);
+        //imageAllUrl.push({ imageUri: key });
+        //await Storage.put(key, blob);
+      });
+  };
+
+  // Auth.signOut();
   return (
     <View style={styles.listing}>
-      <View style={styles.imageContainer}>
-        <View style={styles.imageUpload}>
-          <Text style={styles.imageText}>Sube tus imagenes:</Text>
-          <Pressable
-            style={styles.imageSelect}
-            onPress={() => {
-              navigation.navigate("SelectPhotos");
-            }}
-          >
-            <Ionicons
-              name="ios-add-circle-outline"
-              size={24}
-              color={colors.secondary}
-            />
-          </Pressable>
-        </View>
-        <View>
-          <ScrollView horizontal={true}>
-            {imageData &&
-              imageData.map((component, index) => (
-                <Image
-                  key={component.id}
-                  source={{ uri: component.uri }}
-                  style={styles.imageData}
-                />
-              ))}
-          </ScrollView>
-        </View>
-      </View>
+      <Text style={styles.listingTitle}>Crea una nueva publicación</Text>
       <Pressable
-        style={styles.categoryContainer}
+        style={[styles.categoryContainer, { marginTop: 10 }]}
         onPress={() => {
           navigation.navigate("SelectCategory");
         }}
@@ -118,20 +108,22 @@ const Listing = () => {
           returnKeyType="done"
         />
       </View>
-      <View style={styles.textContainer}>
-        <MaterialCommunityIcons
-          name="text-box-search-outline"
-          size={24}
-          color={colors.white}
-        />
-        <TextInput
-          onChangeText={(text) => setDescription(text)}
-          multiline={true}
-          maxHeight={70}
-          style={styles.inputText}
-          placeholder="Descripción"
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.textContainer}>
+          <MaterialCommunityIcons
+            name="text-box-search-outline"
+            size={24}
+            color={colors.white}
+          />
+          <TextInput
+            onChangeText={(text) => setDescription(text)}
+            multiline={true}
+            maxHeight={75}
+            style={styles.inputText}
+            placeholder="Descripción"
+          />
+        </View>
+      </TouchableWithoutFeedback>
       <View style={[styles.textContainer, { width: "40%" }]}>
         <MaterialCommunityIcons
           name="currency-usd"
@@ -148,9 +140,42 @@ const Listing = () => {
         />
         <Text>MXN</Text>
       </View>
-      <View style={styles.postButton}>
-        <Text style={styles.postButtonText}>PUBLICAR AHORA</Text>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageUpload}>
+          <Text style={styles.imageText}>Sube tus imagenes:</Text>
+          <Pressable
+            style={styles.imageSelect}
+            onPress={() => {
+              navigation.navigate("SelectPhotos");
+            }}
+          >
+            <Ionicons
+              name="ios-add-circle-outline"
+              size={24}
+              color={colors.secondary}
+            />
+          </Pressable>
+        </View>
+        <View>
+          <ScrollView horizontal={true}>
+            {imageData &&
+              imageData.map((component, index) => (
+                <Image
+                  key={component.id}
+                  source={{ uri: component.uri }}
+                  style={styles.imageData}
+                />
+              ))}
+          </ScrollView>
+        </View>
       </View>
+      <Pressable
+        onPress={() => storeToDB()}
+        android_ripple={{ color: colors.grey }}
+        style={styles.postButton}
+      >
+        <Text style={styles.postButtonText}>PUBLICAR AHORA</Text>
+      </Pressable>
     </View>
   );
 };
