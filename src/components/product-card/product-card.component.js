@@ -6,20 +6,23 @@ const ProductCard = () => {
     const navigation = useNavigation();
 
     return (
-      <Pressable onPress={() => {
-        navigation.navigate("ProductDetails");
-      }} style={styles.container}>
-          <Image
-            source={{ uri: "https://picsum.photos/200/300" }}
-            style={styles.postImage}
-          ></Image>
-          <View style={styles.postContentWrap}>
-            <View>
-              <Text style={styles.postTitle}>Creel, Chihuahua, MX</Text>
-              <Text style={styles.postPlace}>A 960 Kilometros de distancia</Text>
-            </View>
-            <Text style={styles.postValue}>$1,544 MXN noche</Text>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("ProductDetails");
+        }}
+        style={styles.container}
+      >
+        <Image
+          source={{ uri: "https://picsum.photos/200/300" }}
+          style={styles.postImage}
+        ></Image>
+        <View style={styles.postContentWrap}>
+          <View>
+            <Text style={styles.postTitle}>Creel, Chihuahua, MX</Text>
+            <Text style={styles.postPlace}>A 960 Kilómetros de distancia</Text>
           </View>
+          <Text style={styles.postValue}>$1,544 MXN noche</Text>
+        </View>
       </Pressable>
     );
 }

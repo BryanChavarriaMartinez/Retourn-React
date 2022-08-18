@@ -2,13 +2,7 @@ import React, { useState  } from "react";
 import { Text, Pressable, ScrollView } from "react-native";
 import { useNavigation} from "@react-navigation/native";
 import styles from "./select-categories.styles";
-import {
-  Ionicons,
-  Entypo,
-  AntDesign,
-  MaterialIcons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color.modal";
 
 const SelectCategory = () => {
@@ -18,66 +12,69 @@ const SelectCategory = () => {
       {
         id: 0,
         fullIcon: (
-          <MaterialCommunityIcons
+          <FontAwesome5
             style={styles.catIcon}
-            name="home-circle-outline"
+            name="hotel"
             size={24}
             color="black"
           />
         ),
-        name: "Departamentos",
+        name: "Hotel",
       },
       {
         id: 1,
         fullIcon: (
-          <Ionicons
+          <MaterialCommunityIcons
             style={styles.catIcon}
-            name="car-sport"
+            name="office-building-marker-outline"
             size={24}
             color="black"
           />
         ),
-        name: "Vehiculos",
+        name: "Departamento",
       },
       {
         id: 2,
         fullIcon: (
-          <MaterialCommunityIcons
+          <FontAwesome5
             style={styles.catIcon}
-            name="home-edit-outline"
+            name="house-user"
             size={24}
             color="black"
           />
         ),
-        name: "Articulos para el hogar",
+        name: "Casa",
       },
       {
         id: 3,
         fullIcon: (
-          <Entypo style={styles.catIcon} name="book" size={24} color="black" />
+          <MaterialCommunityIcons
+            style={styles.catIcon}
+            name="home-switch-outline"
+            size={24}
+            color="black"
+          />
         ),
-        name: "Libros",
+        name: "Habitacion (Casa compartida)",
       },
       {
         id: 4,
         fullIcon: (
           <MaterialCommunityIcons
             style={styles.catIcon}
-            name="desktop-mac-dashboard"
+            name="home-group"
             size={24}
             color="black"
           />
         ),
-        name: "Equipos de oficina",
+        name: "Vecindad",
       },
     ],
   });
 
   return (
     <ScrollView>
-      <Text
-        style={styles.categoryText}
-      >Seleccion una categoria:</Text>
+      <Text style={styles.categoryText}>Seleccion una categoría:</Text>
       {catState.names.map((item, index) => (
         <Pressable
           key={item.id}

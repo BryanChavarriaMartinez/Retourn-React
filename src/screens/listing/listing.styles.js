@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   inputText: {
+    width: "100%",
     fontSize: 16,
     marginLeft: 10,
     color: colors.white,

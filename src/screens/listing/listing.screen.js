@@ -12,7 +12,11 @@ const Listing = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [imageData, setImageData] = useState([]);
-  const [category, setCategory] = useState({ catID: 0, catName: "Categoria"});
+  const [category, setCategory] = useState({ catID: 0, catName: "Categoría" });
+  const [location, setLocation] = useState({ locID: 0, locName: "Ubicación" });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
 
   useEffect(() => {
     if (!route.params) {
@@ -20,8 +24,10 @@ const Listing = () => {
     } else {
       if (route.params.imageData !== undefined) {
         setImageData(route.params.imageData);
-      } else if(route.params.catID !== undefined) {
+      } else if (route.params.catID !== undefined) {
         setCategory(route.params);
+      } else if (route.params.locID !== undefined) {
+        setLocation(route.params);
       }
     }
   });
@@ -83,17 +89,22 @@ const Listing = () => {
           color={colors.white}
         />
       </Pressable>
-      <View style={styles.categoryContainer}>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("SelectLocation");
+        }}
+        style={styles.categoryContainer}
+      >
         <View style={styles.categoryIcons}>
           <Ionicons name="ios-location-sharp" size={20} color={colors.white} />
-          <Text style={styles.categoryText}>Ubicacion</Text>
+          <Text style={styles.categoryText}>{location.locName}</Text>
         </View>
         <Ionicons
           name="ios-arrow-forward-circle-outline"
           size={24}
           color={colors.white}
         />
-      </View>
+      </Pressable>
       <View style={styles.textContainer}>
         <MaterialCommunityIcons
           name="text-recognition"
@@ -101,8 +112,10 @@ const Listing = () => {
           color={colors.white}
         />
         <TextInput
+          onChangeText={(text) => setTitle(text)}
           style={styles.inputText}
-          placeholder="Titulo de la publicacion"
+          placeholder="Título de la publicación"
+          returnKeyType="done"
         />
       </View>
       <View style={styles.textContainer}>
@@ -111,21 +124,29 @@ const Listing = () => {
           size={24}
           color={colors.white}
         />
-        <TextInput style={styles.inputText} placeholder="Descripcion" />
+        <TextInput
+          onChangeText={(text) => setDescription(text)}
+          multiline={true}
+          maxHeight={70}
+          style={styles.inputText}
+          placeholder="Descripción"
+        />
       </View>
-      <View style={[styles.textContainer, { width: "60%" }]}>
+      <View style={[styles.textContainer, { width: "40%" }]}>
         <MaterialCommunityIcons
           name="currency-usd"
           size={24}
           color={colors.white}
         />
         <TextInput
+          onChangeText={(text) => setPrice(text)}
           style={styles.inputText}
           placeholder="Precio"
           keyboardType="number-pad"
-          maxLength={5}
+          maxLength={6}
+          returnKeyType="done"
         />
-        <Text style={styles.inputText}>MXN</Text>
+        <Text>MXN</Text>
       </View>
       <View style={styles.postButton}>
         <Text style={styles.postButtonText}>PUBLICAR AHORA</Text>
