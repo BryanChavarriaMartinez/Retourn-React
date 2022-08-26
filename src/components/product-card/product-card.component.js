@@ -2,8 +2,9 @@ import { Text, View, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./product-card.styles";
 
-const ProductCard = () => {
+const ProductCard = (props) => {
     const navigation = useNavigation();
+    const product = props.post;
 
     return (
       <Pressable
@@ -18,10 +19,10 @@ const ProductCard = () => {
         ></Image>
         <View style={styles.postContentWrap}>
           <View>
-            <Text style={styles.postTitle}>Creel, Chihuahua, MX</Text>
-            <Text style={styles.postPlace}>A 960 Kilómetros de distancia</Text>
+            <Text style={styles.postTitle}>{product.title}</Text>
+            <Text style={styles.postPlace}>{product.locationName}</Text>
           </View>
-          <Text style={styles.postValue}>$1,544 MXN noche</Text>
+          <Text style={styles.postValue}>$ {product.rentValue} MXN Month</Text>
         </View>
       </Pressable>
     );

@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: colors.white,
     marginHorizontal: 10,
+    overflow: "hidden",
   },
   postImage: {
     height: 328,
