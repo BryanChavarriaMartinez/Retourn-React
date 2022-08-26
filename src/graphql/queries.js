@@ -12,6 +12,7 @@ export const getListing = /* GraphQL */ `
       images
       locationID
       locationName
+      rentValue
       userID
       commonID
       createdAt
@@ -36,6 +37,7 @@ export const listListings = /* GraphQL */ `
         images
         locationID
         locationName
+        rentValue
         userID
         commonID
         createdAt
@@ -48,7 +50,7 @@ export const listListings = /* GraphQL */ `
 `;
 export const getListingByCreatedAt = /* GraphQL */ `
   query GetListingByCreatedAt(
-    $commonID: String!
+    $commonID: String
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelListingFilterInput
@@ -72,6 +74,7 @@ export const getListingByCreatedAt = /* GraphQL */ `
         images
         locationID
         locationName
+        rentValue
         userID
         commonID
         createdAt

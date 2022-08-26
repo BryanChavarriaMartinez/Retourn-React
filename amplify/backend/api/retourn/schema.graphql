@@ -1,5 +1,10 @@
 type Listing
   @model
+  @key(
+    name: "listingByCreatedAt"
+    fields: ["commonID", "createdAt"]
+    queryField: "getListingByCreatedAt"
+  )
   @auth(
     rules: [
       { allow: owner }
@@ -15,12 +20,8 @@ type Listing
   images: String
   locationID: String
   locationName: String
+  rentValue: String
   userID: ID
   commonID: String
-    @index(
-    name: "listingByCreatedAt"
-    sortKeyFields: ["createdAt"]
-    queryField: "getListingByCreatedAt"
-  ) 
   createdAt: AWSDateTime
 }
