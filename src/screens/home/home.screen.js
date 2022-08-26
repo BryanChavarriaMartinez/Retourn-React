@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, FlatList, RefreshControl } from "react-native";
 import { API } from "aws-amplify";
 import HeaderMobile from "../../components/header-mobile/header-mobile.component";
 import ProductCard from "../../components/product-card/product-card.component";
 import { getListingByCreatedAt } from "../../graphql/queries";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 const Home = () => {
   const [newItems, setNewItems] = useState([]);
@@ -24,10 +28,25 @@ const Home = () => {
     fetchAll();
   }, [])
 
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <View>
       <HeaderMobile />
-      <FlatList data={newItems} renderItem={({ item }) => <ProductCard post={item} />} />
+      <FlatList
+        data={newItems}
+        renderItem={({ item }) => <ProductCard post={item} />}
+        refreshControl={
+          <RefreshControl 
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      />
     </View>
   );
 };

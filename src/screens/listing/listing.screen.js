@@ -11,9 +11,8 @@ import {
   Dimensions,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
-import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
+import { Auth, Storage, API } from "aws-amplify";
 import { createListing } from "../../graphql/mutations";
-import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -26,6 +25,7 @@ const Listing = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [userID, setUserID] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [imageData, setImageData] = useState([]);
   const [category, setCategory] = useState({ catID: 0, catName: "Categoría" });
   const [location, setLocation] = useState({ locID: 0, locName: "Ubicación" });
@@ -52,7 +52,7 @@ const Listing = () => {
   useEffect(() => {
     if (postSuccess !== "") {
       setPostProcessing(false);
-      Alert.alert("Publicacion exitosa", postSuccess, [
+      Alert.alert("Publicación exitosa", postSuccess, [
         {
           text: "Ok",
           onPress: () => navigation.navigate("Home", { screen: "Explore" }),
@@ -65,7 +65,7 @@ const Listing = () => {
     .then((user) => {
       console.log("user id is: ", user.attributes.sub);
       setUserID(user.attributes.sub);
-      //setUserEmail(user.attributes.email);
+      setUserEmail(user.attributes.email);
     })
     .catch((err) => {
       console.log(err);
@@ -76,8 +76,8 @@ const Listing = () => {
   const storeToDB = async () => {
     setPostProcessing(true);
     imageData &&
-      imageData.map(async (compnent, index) => {
-        const imageUrl = compnent.uri;
+      imageData.map(async (component, index) => {
+        const imageUrl = component.uri;
         const response = await fetch(imageUrl);
         const blob = await response.blob();
         const urlParts = imageUrl.split(".");
@@ -94,6 +94,7 @@ const Listing = () => {
             images: JSON.stringify(imageAllUrl),
             locationID: location.locID,
             locationName: location.locName,
+            owner: userEmail,
             rentValue: price,
             userID: userID,
             commonID: "1"
@@ -104,7 +105,6 @@ const Listing = () => {
             authMode: "AMAZON_COGNITO_USER_POOLS"
           });
           setPostProcessing(false);
-          setPostSuccess("Publicacion exitosa!");
         }
       });
   };
