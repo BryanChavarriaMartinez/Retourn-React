@@ -1,10 +1,12 @@
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, Dimensions } from "react-native";
 import styles from "./header-mobile.styles";
 import { Ionicons } from "@expo/vector-icons";
 
 const HeaderMobile = () => {
+  const windowWidth = Number(Dimensions.get("window").width);
+
   return (
-    <View style={styles.headerWrap}>
+    <View style={[styles.headerWrap, { display: windowWidth > 800 ? "none" : "flex" }]}>
       <View style={styles.searchWrap}>
         <View style={styles.searchByTextWrap}>
           <Ionicons name="ios-search-sharp" size={20} color="black" />

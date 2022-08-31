@@ -1,3 +1,4 @@
+import { Platform, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/home/home.screen";
 import ProductDetails from "../screens/product-details/product-details.screen";
@@ -6,6 +7,7 @@ import { colors } from "../modal/color.modal";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomTabNav = () => {
+  const windowWidth = Number(Dimensions.get("window").width);
   const Tab = createBottomTabNavigator();
 
   return (
@@ -15,6 +17,7 @@ const BottomTabNav = () => {
         tabBarStyle: {
           backgroundColor: colors.primary,
           height: 55,
+          display: windowWidth > 800 ? "none" : "flex"
         },
       }}
       sceneContainerStyle={{ backgroundColor: colors.background }}

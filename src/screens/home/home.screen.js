@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { View, FlatList, RefreshControl } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, FlatList, Dimensions } from "react-native";
 import { API } from "aws-amplify";
 import HeaderMobile from "../../components/header-mobile/header-mobile.component";
+import HeaderComputer from "../../components/header-computer/header-computer.component";
 import ProductCard from "../../components/product-card/product-card.component";
+import SelectCategoryComputer from "../../components/category-computer/select-categories/category-computer.component";
 import { getListingByCreatedAt } from "../../graphql/queries";
-
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
+import styles from "./home.styles";
 
 const Home = () => {
+  const windowWidth = Number(Dimensions.get("window").width);
   const [newItems, setNewItems] = useState([]);
   const fetchAll = async () => {
     try {
@@ -28,25 +28,32 @@ const Home = () => {
     fetchAll();
   }, [])
 
-  const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-  }, []);
-
   return (
     <View>
       <HeaderMobile />
-      <FlatList
-        data={newItems}
-        renderItem={({ item }) => <ProductCard post={item} />}
-        refreshControl={
-          <RefreshControl 
-            refreshing={refreshing}
-            onRefresh={onRefresh}
+      <HeaderComputer />
+      <View style={styles.listWrap}>
+        <View
+          style={[
+            styles.computerListView,
+            { width: windowWidth > 800 ? "80%" : "100%" },
+          ]}
+        >
+          <View
+            style={[
+              styles.computerListCategory,
+              { display: windowWidth > 800 ? "flex" : "none" }
+            ]}
+          >
+            <SelectCategoryComputer />
+          </View>
+          <FlatList
+            style={styles.flatList}
+            data={newItems}
+            renderItem={({ item }) => <ProductCard post={item} />}
           />
-        }
-      />
+        </View>
+      </View>
     </View>
   );
 };
