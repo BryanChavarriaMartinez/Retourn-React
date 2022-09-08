@@ -103,11 +103,11 @@ const Listing = (props) => {
         if(Platform.OS === "web"){
           const contentType = blob.type;
           const extension = contentType.split("/")[1]
-          const key = `${uuidv4()}.${extension}`;
+          var key = `${uuidv4()}.${extension}`;
         } else {
           const urlParts = imageUrl.split(".");
           const extension = urlParts[urlParts.length - 1];
-          const key = `${uuidv4()}.${extension}`;
+          var key = `${uuidv4()}.${extension}`;
         }
         imageAllUrl.push({ imageUri: key });
         await Storage.put(key, blob);

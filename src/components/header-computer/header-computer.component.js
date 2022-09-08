@@ -21,7 +21,8 @@ const HeaderComputer = (props) => {
             style={styles.imageWrap}
             onPress={() => {
               navigation.navigate("Home", { screen: "Explore" });
-            }}>
+            }}
+          >
             <Image
               style={styles.image}
               source={require("../../../assets/retournLogo.jpg")}
@@ -50,14 +51,22 @@ const HeaderComputer = (props) => {
         </View>
         <View style={styles.menuAddWrap}>
           <View>
-            <Button title="Añadir propiedad" color={colors.green} onPress={() => {
-              navigation.navigate( "Home", { screen: "Listing" })
-            }} />
+            <Button
+              title="Añadir propiedad"
+              color={colors.green}
+              onPress={() => {
+                navigation.navigate("Home", { screen: "Listing" });
+              }}
+            />
           </View>
           <View style={styles.menuButton}>
-            <Button title="Menu" color={colors.secondary} onPress={() => {
-              props.setMenuToggle(!props.menuToggle);
-            }} />
+            <Button
+              title="Menu"
+              color={colors.secondary}
+              onPress={() => {
+                props.setMenuToggle(!props.menuToggle);
+              }}
+            />
           </View>
         </View>
       </View>

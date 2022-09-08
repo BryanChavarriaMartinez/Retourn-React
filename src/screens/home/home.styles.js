@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   computerListView: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "center",
   },
   computerListCategory: {
     alignItems: "center",

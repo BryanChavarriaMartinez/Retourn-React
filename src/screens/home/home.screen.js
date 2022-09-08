@@ -13,7 +13,7 @@ const Home = () => {
   const windowWidth = Number(Dimensions.get("window").width);
   const [newItems, setNewItems] = useState([]);
   const [menuToggle, setMenuToggle] = useState(false);
-  
+
   const fetchAll = async () => {
     try {
       const itemListByCommonID = await API.graphql({
@@ -32,7 +32,7 @@ const Home = () => {
   }, [])
 
   return (
-    <View>
+    <>
       <HeaderMobile />
       <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       <View style={styles.listWrap}>
@@ -58,7 +58,7 @@ const Home = () => {
         </View>
       </View>
       <MenuDetailsComputer menuToggle={menuToggle} />
-    </View>
+    </>
   );
 };
 
