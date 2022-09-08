@@ -16,15 +16,15 @@ const ProductDetails = (props) => {
   const [menuToggle, setMenuToggle] = useState(false);
 
   return (
-    <ScrollView>
+    <View style={styles.containerWrap}>
       <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
-      <View style={styles.containerWrap}>
+      <View style={styles.container}>
         <View style={{ width: windowWidth > 800 ? "80%" : "100%" }}>
           <View style={styles.imageWrap}>
             <ScrollView
               horizontal={true}
               pagingEnabled
-              showsHorizontalScrollIndicator={false}
+              showsHorizontalScrollIndicator={true}
             >
               {images &&
                 images.map((data, index) => (
@@ -57,7 +57,7 @@ const ProductDetails = (props) => {
               {route.params.postInfo.locationName}
             </Text>
           </View>
-          <View style={styles.ownerDetails}>
+          <View style={[styles.ownerDetails, { marginRight: windowWidth > 800 ? "13%" : 20 }]}>
             <View>
               <Text style={styles.ownedByTitle}>Publicado por</Text>
               <Text style={styles.ownedByMail}>{substrEmail}</Text>
@@ -81,14 +81,22 @@ const ProductDetails = (props) => {
               </Text>
               <Text style={styles.rentValueText}>MXN por mes</Text>
             </View>
-            <Pressable style={styles.postButton}>
-              <Text style={styles.postButtonText}>Reservar</Text>
-            </Pressable>
           </View>
         </View>
       </View>
+      <Pressable
+        style={[
+          styles.postButton,
+          {
+            bottom: windowWidth > 800 ? "11%" : "0.5%",
+            right: windowWidth > 800 ? "20%" : "7%",
+          },
+        ]}
+      >
+        <Text style={styles.postButtonText}>Reservar</Text>
+      </Pressable>
       <MenuDetailsComputer menuToggle={menuToggle} />
-    </ScrollView>
+    </View>
   );
 };
 

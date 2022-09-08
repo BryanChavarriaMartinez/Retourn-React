@@ -2,10 +2,12 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../modal/color.modal";
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
+  containerWrap: {
+    flex: 1,
+    position: "relative",
   },
   container: {
+    alignItems: "center",
   },
   imageWrap: {},
   postImage: {
@@ -74,9 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    position: "absolute",
     marginLeft: 20,
-    marginTop: 430,
+    marginTop: 110,
     paddingTop: 20,
     paddingBottom: 20,
     borderTopWidth: StyleSheet.hairlineWidth,
@@ -149,9 +150,8 @@ const styles = StyleSheet.create({
     color: colors.secondary,
   },
   postButton: {
-    alignItems: "center",
-    borderRadius: 5,
-    marginLeft: 45,
+    position: "absolute",
+    borderRadius: 10,
     backgroundColor: colors.secondary,
   },
   postButtonText: {
