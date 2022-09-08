@@ -12,7 +12,29 @@ const Route = () => {
     const Stack  = createStackNavigator();
 
     return (
-      <NavigationContainer>
+      <NavigationContainer
+        linking={{
+          prefixes: [
+            "retournApp://",
+            "https://retourn.casa",
+            "https://*.retourn.casa",
+          ],
+          config: {
+            screens: {
+              Home: {
+                screens: {
+                  Explore: "/Explore",
+                  Listing: "/Listing",
+                  Inbox: "/Inbox",
+                  Profile: "/Profile",
+                },
+              },
+              SelectLocation: "/SelectLocation",
+              ProductDetails: "/ProductDetails",
+            },
+          },
+        }}
+      >
         <Stack.Navigator
           screenOptions={{
             cardStyle: {

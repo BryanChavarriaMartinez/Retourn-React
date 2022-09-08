@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 80,
     backgroundColor: colors.primary,
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.9,
+    shadowRadius: 5,
+    elevation: 5,
   },
   subHeaderWrap: {
     flexDirection: "row",

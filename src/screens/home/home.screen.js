@@ -4,13 +4,16 @@ import { API } from "aws-amplify";
 import HeaderMobile from "../../components/header-mobile/header-mobile.component";
 import HeaderComputer from "../../components/header-computer/header-computer.component";
 import ProductCard from "../../components/product-card/product-card.component";
-import SelectCategoryComputer from "../../components/category-computer/select-categories/category-computer.component";
+import CategoryComputer from "../../components/category-computer/category-computer.component";
+import MenuDetailsComputer from "../../components/menu-details-computer/menu-details-computer.component";
 import { getListingByCreatedAt } from "../../graphql/queries";
 import styles from "./home.styles";
 
 const Home = () => {
   const windowWidth = Number(Dimensions.get("window").width);
   const [newItems, setNewItems] = useState([]);
+  const [menuToggle, setMenuToggle] = useState(false);
+  
   const fetchAll = async () => {
     try {
       const itemListByCommonID = await API.graphql({
@@ -31,7 +34,7 @@ const Home = () => {
   return (
     <View>
       <HeaderMobile />
-      <HeaderComputer />
+      <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       <View style={styles.listWrap}>
         <View
           style={[
@@ -42,10 +45,10 @@ const Home = () => {
           <View
             style={[
               styles.computerListCategory,
-              { display: windowWidth > 800 ? "flex" : "none" }
+              { display: windowWidth > 800 ? "flex" : "none" },
             ]}
           >
-            <SelectCategoryComputer />
+            <CategoryComputer />
           </View>
           <FlatList
             style={styles.flatList}
@@ -54,6 +57,7 @@ const Home = () => {
           />
         </View>
       </View>
+      <MenuDetailsComputer menuToggle={menuToggle} />
     </View>
   );
 };

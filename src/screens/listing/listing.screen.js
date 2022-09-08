@@ -2,25 +2,29 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  TextInput,
+  Image,
+  Platform,
   Pressable,
   ScrollView,
-  Image,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
   Dimensions,
+  Alert,
 } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { withAuthenticator } from "aws-amplify-react-native";
 import { Auth, Storage, API } from "aws-amplify";
 import { createListing } from "../../graphql/mutations";
 import { v4 as uuidv4 } from "uuid";
-import { TextInput } from "react-native-gesture-handler";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import * as ImagePicker from 'expo-image-picker';
+import HeaderComputer from "../../components/header-computer/header-computer.component";
+import MenuDetailsComputer from "../../components/menu-details-computer/menu-details-computer.component";
 import styles from "./listing.styles";
 import { colors } from "../../modal/color.modal";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const Listing = () => {
+const Listing = (props) => {
   const windowWidth = Number(Dimensions.get("window").width);
   const navigation = useNavigation();
   const route = useRoute();
@@ -34,6 +38,22 @@ const Listing = () => {
   const [price, setPrice] = useState("");
   const [postSuccess, setPostSuccess] = useState("");
   const [postProcessing, setPostProcessing] = useState(false);
+  const [menuToggle, setMenuToggle] = useState(false);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      allowsMultipleSelection: true,
+    });
+
+    console.log(result);
+    if(!result.cancelled) {
+      setImageData(result.selected)
+    }
+  };
 
   useEffect(() => {
     if (!route.params) {
@@ -80,9 +100,15 @@ const Listing = () => {
         const imageUrl = component.uri;
         const response = await fetch(imageUrl);
         const blob = await response.blob();
-        const urlParts = imageUrl.split(".");
-        const extension = urlParts[urlParts.length - 1];
-        const key = `${uuidv4()}.${extension}`;
+        if(Platform.OS === "web"){
+          const contentType = blob.type;
+          const extension = contentType.split("/")[1]
+          const key = `${uuidv4()}.${extension}`;
+        } else {
+          const urlParts = imageUrl.split(".");
+          const extension = urlParts[urlParts.length - 1];
+          const key = `${uuidv4()}.${extension}`;
+        }
         imageAllUrl.push({ imageUri: key });
         await Storage.put(key, blob);
         if(imageData.length == index + 1) {
@@ -111,7 +137,8 @@ const Listing = () => {
 
   // Auth.signOut();
   return (
-    <View style={styles.listing}>
+    <View style={styles.listingWrap}>
+      <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       <ScrollView
         style={{
           width: windowWidth > 800 ? "80%" : "100%",
@@ -210,7 +237,11 @@ const Listing = () => {
             <Pressable
               style={styles.imageSelect}
               onPress={() => {
-                navigation.navigate("SelectPhotos");
+                if(Platform.OS === "web") {
+                  pickImage();
+                } else {
+                  navigation.navigate("SelectPhotos");
+                }
               }}
             >
               <Ionicons
@@ -243,6 +274,7 @@ const Listing = () => {
           </Text>
         </Pressable>
       </ScrollView>
+      <MenuDetailsComputer menuToggle={menuToggle} />
     </View>
   );
 };

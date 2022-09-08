@@ -2,8 +2,10 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../modal/color.modal";
 
 const styles = StyleSheet.create({
-  listing: {
-    margin: 10,
+  listingWrap: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
   },
   listingTitle: {
     fontSize: 18,

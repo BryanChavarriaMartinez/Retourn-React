@@ -5,7 +5,7 @@ import styles from "./category-computer.styles";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color.modal";
 
-const SelectCategoryComputer = () => {
+const CategoryComputer = () => {
   const navigation = useNavigation();
   const [catState, setCatState] = useState({
     names: [
@@ -73,8 +73,7 @@ const SelectCategoryComputer = () => {
   });
 
   return (
-    <ScrollView>
-      <Text style={styles.categoryText}>Seleccion una categoría:</Text>
+    <ScrollView style={styles.categoryWrap}>
       {catState.names.map((item, index) => (
         <Pressable
           key={item.id}
@@ -95,4 +94,4 @@ const SelectCategoryComputer = () => {
   );
 };
 
-export default SelectCategoryComputer;
+export default CategoryComputer;

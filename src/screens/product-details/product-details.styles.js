@@ -2,7 +2,11 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../modal/color.modal";
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    alignItems: "center",
+  },
+  container: {
+  },
   imageWrap: {},
   postImage: {
     height: 260,
