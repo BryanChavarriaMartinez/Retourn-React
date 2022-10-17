@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, Image, ScrollView, Pressable, Dimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { API, Auth } from "aws-amplify";
+import { createRentOrder } from "../../graphql/mutations";
 import HeaderComputer from "../../components/header-computer/header-computer.component";
 import MenuDetailsComputer from "../../components/menu-details-computer/menu-details-computer.component";
 import styles from "./product-details.styles";
@@ -11,9 +13,39 @@ const ProductDetails = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
   const [images, setImages] = useState(JSON.parse(route.params.postInfo.images));
-  const [userEmail, setUserEmail] = useState(route.params.postInfo.owner);
-  const substrEmail = userEmail.substr(0, userEmail.indexOf("@"));
+  const [userID, setUserID] = useState("");
+  const [lenderUserEmail, setLenderUserEmail] = useState(route.params.postInfo.owner);
+  const [userEmail, setUserEmail] = useState("");
+  const substrEmail = lenderUserEmail.substr(0, lenderUserEmail.indexOf("@"));
   const [menuToggle, setMenuToggle] = useState(false);
+
+  Auth.currentAuthenticatedUser()
+  .then((user) => {
+    setUserID(user.attributes.sub);
+    setUserEmail(user.attributes.email);
+  })
+  .catch((err) => {
+    console.log(err);
+    throw err;
+  });
+
+  const orderToDB = async() => {
+    const postData =  {
+      cardId: route.params.postInfo.id,
+      borrowerUserId: userID,
+      lenderUserID: route.params.postInfo.userID,
+      rentValue: route.params.postInfo.rentValue,
+      borrowerEmailID: userEmail,
+      lenderEmailID: lenderUserEmail,
+      commonID: "1"
+    }
+
+    await API.graphql({
+      query: createRentOrder,
+      variables: {input: postData},
+      authMode: "AMAZON_COGNITO_USER_POOLS"
+    })
+  };
 
   return (
     <View style={styles.containerWrap}>
@@ -85,6 +117,7 @@ const ProductDetails = (props) => {
         </View>
       </View>
       <Pressable
+        onPress={orderToDB}
         style={[
           styles.postButton,
           {
