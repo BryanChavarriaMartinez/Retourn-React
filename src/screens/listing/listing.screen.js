@@ -48,8 +48,7 @@ const Listing = (props) => {
       quality: 1,
       allowsMultipleSelection: true,
     });
-
-    console.log(result);
+    
     if(!result.cancelled) {
       setImageData(result.selected)
     }
@@ -83,7 +82,6 @@ const Listing = (props) => {
 
   Auth.currentAuthenticatedUser()
     .then((user) => {
-      console.log("user id is: ", user.attributes.sub);
       setUserID(user.attributes.sub);
       setUserEmail(user.attributes.email);
     })
@@ -131,6 +129,7 @@ const Listing = (props) => {
             authMode: "AMAZON_COGNITO_USER_POOLS"
           });
           setPostProcessing(false);
+          setPostSuccess("Tu anuncio ha sido publicado.");
         }
       });
   };

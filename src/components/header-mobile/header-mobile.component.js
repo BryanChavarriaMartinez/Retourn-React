@@ -2,8 +2,12 @@ import { Text, TextInput, View, Dimensions } from "react-native";
 import styles from "./header-mobile.styles";
 import { Ionicons } from "@expo/vector-icons";
 
-const HeaderMobile = () => {
+const HeaderMobile = (props) => {
   const windowWidth = Number(Dimensions.get("window").width);
+
+  function onSearch(e) {
+    props.setSearchText(e);
+  }
 
   return (
     <View style={[styles.headerWrap, { display: windowWidth > 800 ? "none" : "flex" }]}>
@@ -14,6 +18,7 @@ const HeaderMobile = () => {
             placeholder="Buscar nuevos destinos"
             style={styles.searchPlaceholder}
             multiline={false}
+            onSubmitEditing={(event) => onSearch(event.nativeEvent.text)}
           />
           <Ionicons name="ios-options-sharp" size={20} color="black" />
         </View>

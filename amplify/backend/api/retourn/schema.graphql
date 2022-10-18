@@ -8,12 +8,11 @@ type Listing
   @auth(
     rules: [
       { allow: owner }
-      { allow: public, operations: [read], provider: iam }
+      { allow: public, provider: iam, operations: [read] }
       { allow: private, provider: userPools }
     ]
-  ) 
-  @searchable
-  {
+  )
+  @searchable {
   id: ID!
   title: String!
   categoryName: String
@@ -30,26 +29,32 @@ type Listing
 }
 
 type RentOrder
-@model
-@key(
-  name: "OrderByBorrowerID"
-  fields: ["borrowerUserId", "createdAt"]
-  queryField: "getOrderByBorrowerID"
-)
-@key(
-  name: "OrderByLenderID"
-  fields: ["lenderUserID", "createdAt"]
-  queryField: "getOrderByLenderID"
-)
-{
-id: ID!
-cardId: ID!
-borrowerUserId: ID!
-lenderUserID: ID!
-rentValue: String
-borrowerEmailID: String
-lenderEmailID: String
-listing: Listing @connection(fields:["cardId"])
-commonID: String
-createdAt: AWSDateTime
+  @model
+  @key(
+    name: "OrderByBorrowerID"
+    fields: ["borrowerUserId", "createdAt"]
+    queryField: "getOrderByBorrowerID"
+  )
+  @key(
+    name: "OrderByLenderID"
+    fields: ["lenderUserID", "createdAt"]
+    queryField: "getOrderByLenderID"
+  )
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, provider: userPools }
+    ]
+  ) 
+  {
+  id: ID!
+  cardId: ID!
+  borrowerUserId: ID!
+  lenderUserID: ID!
+  rentValue: String
+  borrowerEmailID: String
+  lenderEmailID: String
+  listing: Listing @connection(fields: ["cardId"])
+  commonID: String
+  createdAt: AWSDateTime
 }

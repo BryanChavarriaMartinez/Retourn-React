@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/home/home.screen";
 import ProductDetails from "../screens/product-details/product-details.screen";
 import Listing from "../screens/listing/listing.screen";
+import LendBorrowerNav from "./LendBorr.navigation";
 import { colors } from "../modal/color.modal";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -17,7 +18,7 @@ const BottomTabNav = () => {
         tabBarStyle: {
           backgroundColor: colors.primary,
           height: 55,
-          display: windowWidth > 800 ? "none" : "flex"
+          display: windowWidth > 800 ? "none" : "flex",
         },
       }}
       sceneContainerStyle={{ backgroundColor: colors.background }}
@@ -48,11 +49,12 @@ const BottomTabNav = () => {
       />
       <Tab.Screen
         name={"Inbox"}
-        component={Home}
+        component={LendBorrowerNav}
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name="ios-chatbox-outline" size={24} color="black" />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen

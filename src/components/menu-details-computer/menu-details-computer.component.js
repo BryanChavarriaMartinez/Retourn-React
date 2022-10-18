@@ -1,9 +1,11 @@
 import { Text, View, Dimensions, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import styles from "./menu-details-computer.styles";
 import { colors } from "../../modal/color.modal";
 
 const MenuDetailsComputer = (props) => {
+    const navigation = useNavigation();
     const windowWidth = Number(Dimensions.get("window").width);
 
     return (
@@ -18,7 +20,11 @@ const MenuDetailsComputer = (props) => {
                 : "none",
              }]}>
           <View>
-            <Pressable style={[styles.menuOptions, { marginBottom: 20 }]}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Home", { screen:"Inbox" })
+              }} 
+              style={[styles.menuOptions, { marginBottom: 20 }]}>
               <Ionicons
                 name="ios-chatbox-outline"
                 size={24}

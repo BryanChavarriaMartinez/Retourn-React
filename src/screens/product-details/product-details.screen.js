@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Image, ScrollView, Pressable, Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, ScrollView, Pressable, Dimensions, Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { API, Auth } from "aws-amplify";
 import { createRentOrder } from "../../graphql/mutations";
@@ -18,6 +18,18 @@ const ProductDetails = (props) => {
   const [userEmail, setUserEmail] = useState("");
   const substrEmail = lenderUserEmail.substr(0, lenderUserEmail.indexOf("@"));
   const [menuToggle, setMenuToggle] = useState(false);
+  const [postSuccess, setPostSuccess] = useState("");
+
+  useEffect(() => {
+    if (postSuccess !== "") {
+      Alert.alert("Listo!", postSuccess, [
+        {
+          text: "Ok",
+          onPress: () => navigation.navigate("Home", { screen: "Explore" }),
+        },
+      ]);
+    }
+  }, [postSuccess]);
 
   Auth.currentAuthenticatedUser()
   .then((user) => {
@@ -44,7 +56,8 @@ const ProductDetails = (props) => {
       query: createRentOrder,
       variables: {input: postData},
       authMode: "AMAZON_COGNITO_USER_POOLS"
-    })
+    });
+    setPostSuccess("Has reservado el lugar.");
   };
 
   return (

@@ -13,6 +13,13 @@ const Home = () => {
   const windowWidth = Number(Dimensions.get("window").width);
   const [newItems, setNewItems] = useState([]);
   const [menuToggle, setMenuToggle] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    if(searchText !== "") {
+      alert(searchText);
+    }
+  }, [searchText]);
 
   const fetchAll = async () => {
     try {
@@ -33,7 +40,7 @@ const Home = () => {
 
   return (
     <>
-      <HeaderMobile />
+      <HeaderMobile setSearchText ={setSearchText} />
       <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       <View style={styles.listWrap}>
         <View
