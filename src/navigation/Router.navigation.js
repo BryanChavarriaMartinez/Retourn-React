@@ -11,77 +11,77 @@ import BottomTabNav from "./ButtomTab.navigation";
 import { colors } from "../modal/color.modal";
 
 const Route = () => {
-    const Stack  = createStackNavigator();
+  const Stack = createStackNavigator();
 
-    return (
-      <NavigationContainer
-        linking={{
-          prefixes: [
-            "retournApp://",
-            "https://retourn.casa",
-            "https://*.retourn.casa",
-          ],
-          config: {
-            screens: {
-              Home: {
-                screens: {
-                  Explore: "/Explore",
-                  Listing: "/Listing",
-                  Inbox: "/Inbox",
-                  Profile: "/Profile",
-                },
+  return (
+    <NavigationContainer
+      linking={{
+        prefixes: [
+          "retournApp://",
+          "https://retourn.casa",
+          "https://*.retourn.casa",
+        ],
+        config: {
+          screens: {
+            Home: {
+              screens: {
+                Explore: "/Explore",
+                Listing: "/Listing",
+                Inbox: "/Inbox",
+                Profile: "/Profile",
               },
-              SelectLocation: "/SelectLocation",
-              ProductDetails: "/ProductDetails",
             },
+            SelectLocation: "/SelectLocation",
+            ProductDetails: "/ProductDetails",
+          },
+        },
+      }}
+    >
+      <Stack.Navigator
+        screenOptions={{
+          cardStyle: {
+            backgroundColor: colors.background,
           },
         }}
       >
-        <Stack.Navigator
-          screenOptions={{
-            cardStyle: {
-              backgroundColor: colors.background,
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Home"
-            component={BottomTabNav}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ProductDetails"
-            component={ProductDetails}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SelectPhotos"
-            component={SelectPhotos}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SelectCategory"
-            component={SelectCategory}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SelectLocation"
-            component={SelectLocation}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="CategorySearch"
-            component={CategorySearch}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="LocationSearch"
-            component={LocationSearch}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+        <Stack.Screen
+          name="Home"
+          component={BottomTabNav}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectPhotos"
+          component={SelectPhotos}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectCategory"
+          component={SelectCategory}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectLocation"
+          component={SelectLocation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CategorySearch"
+          component={CategorySearch}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LocationSearch"
+          component={LocationSearch}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default Route;

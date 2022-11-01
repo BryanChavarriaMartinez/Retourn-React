@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, Pressable, Dimensions, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Pressable,
+  Dimensions,
+  Alert,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { API, Auth } from "aws-amplify";
 import { createRentOrder } from "../../graphql/mutations";
@@ -12,9 +20,13 @@ const ProductDetails = (props) => {
   const windowWidth = Number(Dimensions.get("window").width);
   const route = useRoute();
   const navigation = useNavigation();
-  const [images, setImages] = useState(JSON.parse(route.params.postInfo.images));
+  const [images, setImages] = useState(
+    JSON.parse(route.params.postInfo.images)
+  );
   const [userID, setUserID] = useState("");
-  const [lenderUserEmail, setLenderUserEmail] = useState(route.params.postInfo.owner);
+  const [lenderUserEmail, setLenderUserEmail] = useState(
+    route.params.postInfo.owner
+  );
   const [userEmail, setUserEmail] = useState("");
   const substrEmail = lenderUserEmail.substr(0, lenderUserEmail.indexOf("@"));
   const [menuToggle, setMenuToggle] = useState(false);
@@ -32,30 +44,30 @@ const ProductDetails = (props) => {
   }, [postSuccess]);
 
   Auth.currentAuthenticatedUser()
-  .then((user) => {
-    setUserID(user.attributes.sub);
-    setUserEmail(user.attributes.email);
-  })
-  .catch((err) => {
-    console.log(err);
-    throw err;
-  });
+    .then((user) => {
+      setUserID(user.attributes.sub);
+      setUserEmail(user.attributes.email);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
 
-  const orderToDB = async() => {
-    const postData =  {
+  const orderToDB = async () => {
+    const postData = {
       cardId: route.params.postInfo.id,
       borrowerUserId: userID,
       lenderUserID: route.params.postInfo.userID,
       rentValue: route.params.postInfo.rentValue,
       borrowerEmailID: userEmail,
       lenderEmailID: lenderUserEmail,
-      commonID: "1"
-    }
+      commonID: "1",
+    };
 
     await API.graphql({
       query: createRentOrder,
-      variables: {input: postData},
-      authMode: "AMAZON_COGNITO_USER_POOLS"
+      variables: { input: postData },
+      authMode: "AMAZON_COGNITO_USER_POOLS",
     });
     setPostSuccess("Has reservado el lugar.");
   };
@@ -102,7 +114,12 @@ const ProductDetails = (props) => {
               {route.params.postInfo.locationName}
             </Text>
           </View>
-          <View style={[styles.ownerDetails, { marginRight: windowWidth > 800 ? "13%" : 20 }]}>
+          <View
+            style={[
+              styles.ownerDetails,
+              { marginRight: windowWidth > 800 ? "13%" : 20 },
+            ]}
+          >
             <View>
               <Text style={styles.ownedByTitle}>Publicado por</Text>
               <Text style={styles.ownedByMail}>{substrEmail}</Text>
