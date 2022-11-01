@@ -7,6 +7,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 import CategoryComputer from "../../components/category-computer/category-computer.component";
 import MenuDetailsComputer from "../../components/menu-details-computer/menu-details-computer.component";
 import { getListingByCreatedAt } from "../../graphql/queries";
+import { useRoute } from "@react-navigation/native";
 import styles from "./home.styles";
 
 const Home = () => {
@@ -14,12 +15,37 @@ const Home = () => {
   const [newItems, setNewItems] = useState([]);
   const [menuToggle, setMenuToggle] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [searchByCategory, setSearchByCategory] = useState({
+    catName: "All",
+    catId: "",
+  });
+  const [searchByLocation, setSearchByLocation] = useState({
+    locationName: "Juarez, Chihuahua",
+    locationId: "",
+  });
+  const route = useRoute();
 
   useEffect(() => {
     if(searchText !== "") {
       alert(searchText);
     }
   }, [searchText]);
+
+  useEffect(() => {
+    if (!route.params) {
+      console.log("Params not set");
+    } else if (route.params.locID !== undefined) {
+      setSearchByLocation({
+        locationName: route.params.locName,
+        locationId: route.params.locID,
+      });
+    } else if (route.params.catID !== undefined) {
+      setSearchByCategory({
+        catName: route.params.catName,
+        catId: route.params.catID,
+      });
+    }
+  }, [route.params]);
 
   const fetchAll = async () => {
     try {
@@ -40,7 +66,11 @@ const Home = () => {
 
   return (
     <>
-      <HeaderMobile setSearchText ={setSearchText} />
+      <HeaderMobile
+        setSearchText={setSearchText}
+        searchByCategory={searchByCategory}
+        searchByLocation={searchByLocation}
+      />
       <HeaderComputer menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       <View style={styles.listWrap}>
         <View

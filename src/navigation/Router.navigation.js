@@ -5,6 +5,8 @@ import ProductDetails from "../screens/product-details/product-details.screen";
 import SelectPhotos from "../screens/select-photos/select-photos.screen";
 import SelectCategory from "../screens/select-categories/select-categories.screen";
 import SelectLocation from "../screens/select-location/select-location.screen";
+import CategorySearch from "../components/category-search/category-search.component";
+import LocationSearch from "../components/location-search/location-search.component";
 import BottomTabNav from "./ButtomTab.navigation";
 import { colors } from "../modal/color.modal";
 
@@ -65,6 +67,16 @@ const Route = () => {
           <Stack.Screen
             name="SelectLocation"
             component={SelectLocation}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CategorySearch"
+            component={CategorySearch}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LocationSearch"
+            component={LocationSearch}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
